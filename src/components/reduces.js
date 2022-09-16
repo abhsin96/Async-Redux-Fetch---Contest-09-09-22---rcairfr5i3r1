@@ -11,17 +11,17 @@ export const hotNewsReducer = (state = initialState, action) => {
       data = data.filter((e, i) => (i < 1 ? e : null));
       return {
         ...state,
-        articles: action.payload,
+        filteredArtilces: action.payload,
         articlesNum: 1,
-        filteredArtilces: data,
+        articles: data,
       };
     case "UPDATE_NO_OF_ARTICLE":
-      let newData = state.articles;
+      let newData = state.filteredArtilces;
       newData = newData.filter((e, i) => (i < action.payload ? e : null));
       return {
         ...state,
         articlesNum: action.payload,
-        filteredArtilces: [...newData],
+        articles: [...newData],
       };
     default:
       return state;

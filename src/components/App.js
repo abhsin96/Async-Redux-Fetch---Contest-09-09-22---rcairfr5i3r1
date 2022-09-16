@@ -47,7 +47,7 @@ const App = () => {
         <div>
           <h3>Top {articlesNum} articles</h3>
           <ul id="articles">
-            {filteredArtilces.map((item) => {
+            {articles.map((item) => {
               return (
                 <li>
                   <div className="article">
