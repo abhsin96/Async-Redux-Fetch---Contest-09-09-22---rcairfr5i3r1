@@ -9,25 +9,25 @@ const API_KEY = "fc469a2bcb2b46fea20a1bb315257c2a"; //Get your own api key from 
 const App = () => {
   const dispatch = useDispatch();
   // const newsObj = useSelector();
-  const { articles, articlesNum } = useSelector((store) => store.hotNews);
+  const { articles, articlesNum, filteredArtilces } = useSelector(
+    (store) => store.hotNews
+  );
   useEffect(() => {
     dispatch(
       fetchAsync(
         `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
       )
     );
-    setTimeout(() => {
-      console.log(articles);
-    }, 3000);
   }, []);
 
   const numChangeHandler = (e) => {
-    dispatch(updateNumber(e.target.value));
+    if (e.target.value <= 20) {
+      dispatch(updateNumber(e.target.value));
+    } else {
+      alert("input can be max 20");
+      dispatch(updateNumber(1));
+    }
   };
-
-  // let articles = [];
-
-  let filteredArticles = articles;
 
   return (
     <div id="main">
@@ -37,15 +37,17 @@ const App = () => {
         <input
           type="number"
           id="num"
+          value={articlesNum}
           onChange={numChangeHandler}
           min={1}
+          max={20}
         ></input>
       </div>
       {articlesNum !== 0 ? (
         <div>
           <h3>Top {articlesNum} articles</h3>
           <ul id="articles">
-            {articles.map((item) => {
+            {filteredArtilces.map((item) => {
               return (
                 <li>
                   <div className="article">
